@@ -21,16 +21,12 @@ public class SyncProducerSample {
         // launches the producer instance
         producer.start();
 
-        for (int i = 0; i < 10; i++) {
-
-            // creates a message
-            Message message = new Message("TestTopic", ("Hello RocketMQ " + i).getBytes());
-            // delivers the message to one of the brokers
-            SendResult sendResult = producer.send(message);
-            // prints the result
-            System.out.println(sendResult);
-
-        }
+        // creates a message
+        Message message = new Message("TestTopic", ("Hello RocketMQ ").getBytes());
+        // delivers the message to one of the brokers
+        SendResult sendResult = producer.send(message);
+        // prints the result
+        System.out.println(sendResult);
 
     }
 

@@ -28,7 +28,7 @@ public class ConsumerSample {
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExtList, ConsumeConcurrentlyContext context) {
-                System.out.printf("%s Receives new messages: %s %n", Thread.currentThread().getName(), messageExtList);
+                System.out.printf("%s receives new messages: %s %n", Thread.currentThread().getName(), messageExtList);
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });

@@ -36,6 +36,12 @@ public class ConsumerSample {
         // launches the consumer instance
         consumer.start();
 
+        // pause and presses any keys to go on
+        System.in.read();
+
+        // stops the consumer
+        consumer.shutdown();
+
     }
 
 }

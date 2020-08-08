@@ -1,6 +1,7 @@
-package com.huey.learning.rocketmq.quickstart.simple;
+package com.huey.learning.rocketmq.quickstart.sending;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 
@@ -9,8 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author zhengzs
  */
-public class OnewayProducerSample {
-
+public class AsyncProducerSample {
 
     public static void main(String[] args) throws Exception {
 
@@ -25,8 +25,22 @@ public class OnewayProducerSample {
 
         // creates a message
         Message message = new Message("TestTopic", ("Hello, RocketMQ!").getBytes());
-        // delivers the message to one of the brokers
-        producer.sendOneway(message);
+
+        // delivers the message asynchronously to one of the brokers
+        producer.send(message, new SendCallback() {
+
+            @Override
+            public void onSuccess(SendResult sendResult) {
+                // prints the result
+                System.out.println(sendResult);
+            }
+
+            @Override
+            public void onException(Throwable e) {
+                e.printStackTrace();
+            }
+
+        });
 
         // waits for sending to complete
         TimeUnit.SECONDS.sleep(3);

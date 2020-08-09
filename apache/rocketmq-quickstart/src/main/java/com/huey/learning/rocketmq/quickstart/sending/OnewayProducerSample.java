@@ -15,7 +15,7 @@ public class OnewayProducerSample {
     public static void main(String[] args) throws Exception {
 
         // creates a producer instance with group name
-        DefaultMQProducer producer = new DefaultMQProducer("TEST_PRODUCER_ONEWAY");
+        DefaultMQProducer producer = new DefaultMQProducer("ONEWAY_PRODUCER");
 
         // specifies the name server addresses
         producer.setNamesrvAddr("localhost:9876");
@@ -24,7 +24,7 @@ public class OnewayProducerSample {
         producer.start();
 
         // creates a message
-        Message message = new Message("TestTopic", ("Hello, RocketMQ!").getBytes());
+        Message message = new Message("OnewayTopic", ("Hello, RocketMQ!").getBytes());
         // delivers the message to one of the brokers
         producer.sendOneway(message);
 

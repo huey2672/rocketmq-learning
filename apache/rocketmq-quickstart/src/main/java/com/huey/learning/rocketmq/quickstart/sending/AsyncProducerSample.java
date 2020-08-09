@@ -15,7 +15,7 @@ public class AsyncProducerSample {
     public static void main(String[] args) throws Exception {
 
         // creates a producer instance with group name
-        DefaultMQProducer producer = new DefaultMQProducer("TEST_PRODUCER_ASYNC");
+        DefaultMQProducer producer = new DefaultMQProducer("ASYNC_PRODUCER");
 
         // specifies the name server addresses
         producer.setNamesrvAddr("localhost:9876");
@@ -24,7 +24,7 @@ public class AsyncProducerSample {
         producer.start();
 
         // creates a message
-        Message message = new Message("TestTopic", ("Hello, RocketMQ!").getBytes());
+        Message message = new Message("AsyncTopic", ("Hello, RocketMQ!").getBytes());
 
         // delivers the message asynchronously to one of the brokers
         producer.send(message, new SendCallback() {

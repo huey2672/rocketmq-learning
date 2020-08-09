@@ -21,7 +21,7 @@ public class PullConsumerSample {
     public static void main(String[] args) throws Exception {
 
         // creates a consumer instance with group name
-        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("TEST_PULL_CONSUMER");
+        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("PULL_CONSUMER");
 
         // specifies the name server addresses
         consumer.setNamesrvAddr("localhost:9876");
@@ -30,7 +30,7 @@ public class PullConsumerSample {
         consumer.start();
 
         // fetches message queues from consumer according to the topic
-        Set<MessageQueue> messageQueues = consumer.fetchSubscribeMessageQueues("TestTopic");
+        Set<MessageQueue> messageQueues = consumer.fetchSubscribeMessageQueues("PullConsumerTopic");
 
         for (MessageQueue messageQueue : messageQueues) {
 

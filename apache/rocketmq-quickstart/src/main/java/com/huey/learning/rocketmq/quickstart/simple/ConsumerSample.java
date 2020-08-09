@@ -16,13 +16,13 @@ public class ConsumerSample {
     public static void main(String[] args) throws Exception {
 
         // creates a consumer instance with group name
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("SIMPLE_CONSUMER");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("TEST_CONSUMER");
 
         // specifies the name server addresses
         consumer.setNamesrvAddr("localhost:9876");
 
         // subscribes a topic to consume
-        consumer.subscribe("SimpleTopic", "*");
+        consumer.subscribe("TestTopic", "*");
 
         // registers a listener to consume messages
         consumer.registerMessageListener(new MessageListenerConcurrently() {

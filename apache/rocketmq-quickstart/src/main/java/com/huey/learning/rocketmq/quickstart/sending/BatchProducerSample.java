@@ -1,19 +1,22 @@
-package com.huey.learning.rocketmq.quickstart.simple;
+package com.huey.learning.rocketmq.quickstart.sending;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author zhengzs
  */
-public class ProducerSample {
+public class BatchProducerSample {
 
 
     public static void main(String[] args) throws Exception {
 
         // creates a producer instance with group name
-        DefaultMQProducer producer = new DefaultMQProducer("TEST_PRODUCER");
+        DefaultMQProducer producer = new DefaultMQProducer("TEST_PRODUCER_SYNC");
 
         // specifies the name server addresses
         producer.setNamesrvAddr("localhost:9876");
@@ -21,10 +24,14 @@ public class ProducerSample {
         // launches the producer instance
         producer.start();
 
-        // creates a message
-        Message message = new Message("TestTopic", ("Hello, RocketMQ!").getBytes());
-        // delivers the message to one of the brokers
-        SendResult sendResult = producer.send(message);
+        // creates a collection of messages
+        List<Message> messages = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            messages.add(new Message("TestTopic", ("Hello, RocketMQ!" + i).getBytes()));
+        }
+
+        // batches delivering the messages to one of the brokers
+        SendResult sendResult = producer.send(messages);
         // prints the result
         System.out.println(sendResult);
 

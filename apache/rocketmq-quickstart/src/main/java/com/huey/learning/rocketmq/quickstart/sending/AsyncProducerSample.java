@@ -15,7 +15,7 @@ public class AsyncProducerSample {
     public static void main(String[] args) throws Exception {
 
         // creates a producer instance with group name
-        DefaultMQProducer producer = new DefaultMQProducer("TEST_PRODUCER");
+        DefaultMQProducer producer = new DefaultMQProducer("TEST_PRODUCER_ASYNC");
 
         // specifies the name server addresses
         producer.setNamesrvAddr("localhost:9876");

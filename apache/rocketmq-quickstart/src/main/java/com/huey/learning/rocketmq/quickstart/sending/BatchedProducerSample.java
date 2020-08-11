@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author zhengzs
+ * @author huey
  */
 public class BatchedProducerSample {
 

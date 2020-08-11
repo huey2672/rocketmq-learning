@@ -1,27 +1,27 @@
 package com.huey.learning.rocketmq.quickstart.ordered;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 
 /**
- * @author zhengzs
+ * order event
+ *
+ * @author huey
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class OrderEvent implements Serializable {
+public enum OrderEvent implements Serializable {
 
     /**
-     * order id
+     * create
      */
-    private Integer orderId;
+    CREATION,
 
     /**
-     * event type
+     * pay
      */
-    private EventType eventType;
+    PAYMENT,
+
+    /**
+     * complete
+     */
+    COMPLETION
 
 }

@@ -9,7 +9,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 import java.util.List;
 
 /**
- * @author zhengzs
+ * @author huey
  */
 public class ConsumerSample {
 

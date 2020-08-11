@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author zhengzs
+ * @author huey
  */
 public class PullConsumerSample {
 

@@ -8,7 +8,7 @@ import org.apache.rocketmq.common.message.Message;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author zhengzs
+ * @author huey
  */
 public class AsyncProducerSample {
 

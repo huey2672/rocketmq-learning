@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author zhengzs
+ * @author huey
  */
 public class OrderedProducerSample {
 
@@ -26,20 +26,25 @@ public class OrderedProducerSample {
         // launches the producer instance
         producer.start();
 
-        List<OrderEvent> orderEventList = buildOrderEvents();
+        // creates a collection of order messages
+        List<OrderMessage> orderMessageList = createOrderMessages();
 
-        for (OrderEvent orderEvent : orderEventList) {
+        for (OrderMessage orderMessage : orderMessageList) {
 
-            Message message = new Message("OrderedTopic", SerializationUtils.serialize(orderEvent));
-            // delivers the message to one of the brokers
+            // create mq message with order message
+            Message message = new Message("OrderedTopic", SerializationUtils.serialize(orderMessage));
+
+            // delivers the message with a queue selector to one of the brokers
             SendResult sendResult = producer.send(message, new MessageQueueSelector() {
                 @Override
                 public MessageQueue select(List<MessageQueue> messageQueues, Message message, Object arg) {
+                    // puts the messages with the same order id to the same queue
                     int orderId = (int) arg;
                     int index = orderId % messageQueues.size();
                     return messageQueues.get(index);
                 }
-            }, orderEvent.getOrderId());
+            }, orderMessage.getOrderId());
+
             // prints the result
             System.out.println(sendResult);
 
@@ -50,24 +55,29 @@ public class OrderedProducerSample {
 
     }
 
-    private static List<OrderEvent> buildOrderEvents() {
+    /**
+     * creates a collection of order messages
+     *
+     * @return
+     */
+    private static List<OrderMessage> createOrderMessages() {
 
-        List<OrderEvent> orderEventList = new ArrayList<>();
+        List<OrderMessage> orderMessageList = new ArrayList<>();
 
-        orderEventList.add(new OrderEvent(1001, EventType.CREATION));
-        orderEventList.add(new OrderEvent(2001, EventType.CREATION));
-        orderEventList.add(new OrderEvent(1001, EventType.PAYMENT));
-        orderEventList.add(new OrderEvent(3001, EventType.CREATION));
-        orderEventList.add(new OrderEvent(3001, EventType.PAYMENT));
-        orderEventList.add(new OrderEvent(2001, EventType.PAYMENT));
-        orderEventList.add(new OrderEvent(4001, EventType.CREATION));
-        orderEventList.add(new OrderEvent(4001, EventType.PAYMENT));
-        orderEventList.add(new OrderEvent(4001, EventType.COMPLETION));
-        orderEventList.add(new OrderEvent(3001, EventType.COMPLETION));
-        orderEventList.add(new OrderEvent(1001, EventType.COMPLETION));
-        orderEventList.add(new OrderEvent(2001, EventType.COMPLETION));
+        orderMessageList.add(new OrderMessage(1001, OrderEvent.CREATION));
+        orderMessageList.add(new OrderMessage(1002, OrderEvent.CREATION));
+        orderMessageList.add(new OrderMessage(1001, OrderEvent.PAYMENT));
+        orderMessageList.add(new OrderMessage(1003, OrderEvent.CREATION));
+        orderMessageList.add(new OrderMessage(1003, OrderEvent.PAYMENT));
+        orderMessageList.add(new OrderMessage(1002, OrderEvent.PAYMENT));
+        orderMessageList.add(new OrderMessage(1004, OrderEvent.CREATION));
+        orderMessageList.add(new OrderMessage(1004, OrderEvent.PAYMENT));
+        orderMessageList.add(new OrderMessage(1004, OrderEvent.COMPLETION));
+        orderMessageList.add(new OrderMessage(1003, OrderEvent.COMPLETION));
+        orderMessageList.add(new OrderMessage(1001, OrderEvent.COMPLETION));
+        orderMessageList.add(new OrderMessage(1002, OrderEvent.COMPLETION));
 
-        return orderEventList;
+        return orderMessageList;
 
     }
 

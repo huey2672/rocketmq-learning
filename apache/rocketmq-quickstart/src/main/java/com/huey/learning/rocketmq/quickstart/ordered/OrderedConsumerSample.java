@@ -10,7 +10,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 import java.util.List;
 
 /**
- * @author zhengzs
+ * @author huey
  */
 public class OrderedConsumerSample {
 
@@ -31,8 +31,8 @@ public class OrderedConsumerSample {
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> messageExtList, ConsumeOrderlyContext context) {
 
                 for (MessageExt messageExt : messageExtList) {
-                    OrderEvent orderEvent = SerializationUtils.deserialize(messageExt.getBody());
-                    System.out.println("Deals with the order event: " + orderEvent);
+                    OrderMessage orderMessage = SerializationUtils.deserialize(messageExt.getBody());
+                    System.out.println("Deals with the order message: " + orderMessage);
                 }
 
                 return ConsumeOrderlyStatus.SUCCESS;

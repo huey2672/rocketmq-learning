@@ -5,7 +5,7 @@ import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 
 /**
- * @author zhengzs
+ * @author huey
  */
 public class SyncProducerSample {
 

@@ -9,7 +9,6 @@ public enum EventType implements Serializable {
 
     CREATION,
     PAYMENT,
-    DISTRIBUTION,
     COMPLETION
 
 }

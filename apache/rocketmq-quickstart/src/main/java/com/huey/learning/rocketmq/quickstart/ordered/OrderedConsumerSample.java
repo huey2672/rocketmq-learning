@@ -32,7 +32,7 @@ public class OrderedConsumerSample {
 
                 for (MessageExt messageExt : messageExtList) {
                     OrderEvent orderEvent = SerializationUtils.deserialize(messageExt.getBody());
-                    System.out.println(orderEvent);
+                    System.out.println("Deals with the order event: " + orderEvent);
                 }
 
                 return ConsumeOrderlyStatus.SUCCESS;

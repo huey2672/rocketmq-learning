@@ -14,8 +14,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class OrderEvent implements Serializable {
 
-    private long orderId;
+    /**
+     * order id
+     */
+    private Integer orderId;
 
+    /**
+     * event type
+     */
     private EventType eventType;
 
 }

@@ -35,8 +35,8 @@ public class OrderedProducerSample {
             SendResult sendResult = producer.send(message, new MessageQueueSelector() {
                 @Override
                 public MessageQueue select(List<MessageQueue> messageQueues, Message message, Object arg) {
-                    long orderId = (long) arg;
-                    int index = (int) (orderId % messageQueues.size());
+                    int orderId = (int) arg;
+                    int index = orderId % messageQueues.size();
                     return messageQueues.get(index);
                 }
             }, orderEvent.getOrderId());
@@ -54,22 +54,18 @@ public class OrderedProducerSample {
 
         List<OrderEvent> orderEventList = new ArrayList<>();
 
-        orderEventList.add(new OrderEvent(10001L, EventType.CREATION));
-        orderEventList.add(new OrderEvent(10002L, EventType.CREATION));
-        orderEventList.add(new OrderEvent(10001L, EventType.PAYMENT));
-        orderEventList.add(new OrderEvent(10003L, EventType.CREATION));
-        orderEventList.add(new OrderEvent(10001L, EventType.DISTRIBUTION));
-        orderEventList.add(new OrderEvent(10003L, EventType.PAYMENT));
-        orderEventList.add(new OrderEvent(10002L, EventType.PAYMENT));
-        orderEventList.add(new OrderEvent(10004L, EventType.CREATION));
-        orderEventList.add(new OrderEvent(10003L, EventType.DISTRIBUTION));
-        orderEventList.add(new OrderEvent(10004L, EventType.PAYMENT));
-        orderEventList.add(new OrderEvent(10004L, EventType.DISTRIBUTION));
-        orderEventList.add(new OrderEvent(10004L, EventType.COMPLETION));
-        orderEventList.add(new OrderEvent(10003L, EventType.COMPLETION));
-        orderEventList.add(new OrderEvent(10001L, EventType.COMPLETION));
-        orderEventList.add(new OrderEvent(10002L, EventType.DISTRIBUTION));
-        orderEventList.add(new OrderEvent(10002L, EventType.COMPLETION));
+        orderEventList.add(new OrderEvent(1001, EventType.CREATION));
+        orderEventList.add(new OrderEvent(2001, EventType.CREATION));
+        orderEventList.add(new OrderEvent(1001, EventType.PAYMENT));
+        orderEventList.add(new OrderEvent(3001, EventType.CREATION));
+        orderEventList.add(new OrderEvent(3001, EventType.PAYMENT));
+        orderEventList.add(new OrderEvent(2001, EventType.PAYMENT));
+        orderEventList.add(new OrderEvent(4001, EventType.CREATION));
+        orderEventList.add(new OrderEvent(4001, EventType.PAYMENT));
+        orderEventList.add(new OrderEvent(4001, EventType.COMPLETION));
+        orderEventList.add(new OrderEvent(3001, EventType.COMPLETION));
+        orderEventList.add(new OrderEvent(1001, EventType.COMPLETION));
+        orderEventList.add(new OrderEvent(2001, EventType.COMPLETION));
 
         return orderEventList;
 

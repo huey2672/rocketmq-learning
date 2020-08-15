@@ -11,7 +11,7 @@
 
     <properties>
         <os.detected.classifier>osx-x86_64</os.detected.classifier>
-        <rocketmq.version>4.2.0</rocketmq.version>
+        <rocketmq.version>4.7.0</rocketmq.version>
     </properties>
 
     <dependencies>
